@@ -10,6 +10,7 @@
       "@shared/*": ["shared/*"],
       "@pages/*": ["pages/*"],
       "@widgets/*": ["widgets/*"],
+      "@entities/*": ["entities/*"],
     },
   },
   "include": ["./src", "src", "./src/*", "vite.config.ts"]
