@@ -4,7 +4,7 @@ import { TaskStatusEnum } from "./taskStatusEnum"
 
 export type Task={
   assignee: AssignedUser
-  boardId: string
+  boardId: number
   boardName: string
   description: string
   title: string
