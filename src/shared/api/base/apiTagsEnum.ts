@@ -1,3 +1,4 @@
 export enum ApiTagsEnum{
-  Tasks='Tasks'
+  Tasks='Tasks',
+  Board='Board',
 }

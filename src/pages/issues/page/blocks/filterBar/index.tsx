@@ -1,8 +1,9 @@
+import { useGetAllBoards } from "@entities/boards"
 import { useTasksFilter } from "@entities/issues"
 import { TaskStatusEnum } from "@shared/api"
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/components"
 import { InputDebounce } from "@shared/lib"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const TasksFilterBar = () => {
   const { filter, setFilter } = useTasksFilter()
@@ -10,19 +11,26 @@ export const TasksFilterBar = () => {
   const [titleInput, setTitleInput] = useState("")
   const [assignedInput, setAssignedInput] = useState("")
 
+  const {data: boards}=useGetAllBoards()
+
   const debouncedSetTitle = InputDebounce((value: string) => {
     setFilter({ title: value })
-  }, 500)
+  }, 300)
   
   const debouncedSetAssigned = InputDebounce((value: string) => {
     setFilter({ assigned: value })
-  }, 500)
+  }, 300)
+
+  useEffect(()=>{
+    setTitleInput(filter.title || '')
+    setAssignedInput(filter.assigned || '')
+  },[])
 
   return (
     <div className="flex gap-2 items-center flex-wrap">
       <Input
         placeholder="Название"
-        value={titleInput ?? ""}
+        value={titleInput || ""}
         onChange={(e) => {
           setTitleInput(e.target.value)
           debouncedSetTitle(e.target.value)
@@ -31,7 +39,7 @@ export const TasksFilterBar = () => {
       />
       <Input
         placeholder="Исполнитель"
-        value={assignedInput ?? ""}
+        value={assignedInput || ""}
         onChange={(e) => {
           setAssignedInput(e.target.value)
           debouncedSetAssigned(e.target.value)
@@ -43,21 +51,32 @@ export const TasksFilterBar = () => {
         onValueChange={(value) => setFilter({ status: value as TaskStatusEnum })}
       >
         <SelectTrigger className="w-40">
-          <SelectValue placeholder="Статус" />
+          <SelectValue placeholder="Статус задачи" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={TaskStatusEnum.BackLog}>К работе</SelectItem>
+          <SelectItem value={null}>Не выбрано</SelectItem>
+          <SelectItem value={TaskStatusEnum.Backlog}>К работе</SelectItem>
           <SelectItem value={TaskStatusEnum.InProgress}>В процессе</SelectItem>
           <SelectItem value={TaskStatusEnum.Done}>Сделана</SelectItem>
         </SelectContent>
       </Select>
 
-      <Input
-        placeholder="ID доски"
+      <Select
         value={filter.board ?? ""}
-        onChange={(e) => setFilter({ board: e.target.value })}
-        className="w-48"
-      />
+        onValueChange={(value) => setFilter({ board: value })}
+      >
+        <SelectTrigger className="w-64">
+          <SelectValue placeholder="Название доски" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={null}>Не выбрано</SelectItem>
+          {boards?.data.map((board) => (
+            <SelectItem key={board.id} value={board.id.toString()}>
+              {board.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   )
 }
