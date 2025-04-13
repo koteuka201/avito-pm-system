@@ -74,7 +74,7 @@ export const TaskModal=({
         status: data.status,
       }},{onSuccess: handleClose})   
     }
-  },[])
+  },[create, handleClose, mode, update])
 
   return(
     <Dialog open={isOpen} onOpenChange={onClose}>

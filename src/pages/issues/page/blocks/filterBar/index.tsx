@@ -3,7 +3,7 @@ import { useTasksFilter } from "@entities/issues"
 import { TaskStatusEnum } from "@shared/api"
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/components"
 import { InputDebounce } from "@shared/lib"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export const TasksFilterBar = () => {
   const { filter, setFilter } = useTasksFilter()
@@ -21,10 +21,17 @@ export const TasksFilterBar = () => {
     setFilter({ assigned: value })
   }, 300)
 
+  //Используется для того, чтобы useEffect срабатывал только при монтировании, 
+  // но в то же время, чтобы линт не ругался на depArray
+  const isFirstRender = useRef(true)
+
   useEffect(()=>{
-    setTitleInput(filter.title || '')
-    setAssignedInput(filter.assigned || '')
-  },[])
+    if(isFirstRender.current){
+      setTitleInput(filter.title || '')
+      setAssignedInput(filter.assigned || '')
+      isFirstRender.current=false
+    }
+  },[filter.title, filter.assigned])
 
   return (
     <div className="flex gap-2 items-center flex-wrap">

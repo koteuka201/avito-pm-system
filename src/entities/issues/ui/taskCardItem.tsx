@@ -1,4 +1,4 @@
-import { AssignedUser, Priority, Task, TaskStatusEnum } from "@shared/api"
+import { AssignedUser, Priority, TaskStatusEnum } from "@shared/api"
 import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent, CardFooter } from "@shared/components"
 import { useSwitch } from "@shared/lib"
 import { TaskModal } from "./taskModal"
