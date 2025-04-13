@@ -9,6 +9,7 @@
     "paths": {
       "@shared/*": ["shared/*"],
       "@pages/*": ["pages/*"],
+      "@widgets/*": ["widgets/*"],
     },
   },
   "include": ["./src", "src", "./src/*", "vite.config.ts"]
