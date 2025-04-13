@@ -1,7 +1,15 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "baseUrl": "./src",
+    "jsx": "react-jsx",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@pages/*": ["pages/*"],
+    },
+  },
+  "include": ["./src", "src", "./src/*", "vite.config.ts"]
 }
