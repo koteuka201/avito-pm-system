@@ -64,7 +64,7 @@ export const TasksFilterBar = () => {
           <SelectItem value={null}>Не выбрано</SelectItem>
           <SelectItem value={TaskStatusEnum.Backlog}>К работе</SelectItem>
           <SelectItem value={TaskStatusEnum.InProgress}>В процессе</SelectItem>
-          <SelectItem value={TaskStatusEnum.Done}>Сделана</SelectItem>
+          <SelectItem value={TaskStatusEnum.Done}>Выполнена</SelectItem>
         </SelectContent>
       </Select>
 
