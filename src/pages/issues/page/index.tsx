@@ -19,7 +19,7 @@ export const IssuesPage=()=>{
   
   return(
     <div className="">
-      <TasksFilterBar />
+      <TasksFilterBar isLoading={isFetching || isLoading} />
       <ListRenderer 
         className="mt-2"
         tasks={filteredTasks} 

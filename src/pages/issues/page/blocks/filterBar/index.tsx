@@ -2,10 +2,16 @@ import { useGetAllBoards } from "@entities/boards"
 import { useTasksFilter } from "@entities/issues"
 import { TaskStatusEnum } from "@shared/api"
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/components"
-import { InputDebounce } from "@shared/lib"
+import { ClassNameProps, InputDebounce } from "@shared/lib"
+import { cn } from "@shared/lib/utils"
 import { useEffect, useRef, useState } from "react"
+import { FilterBarSkeleton } from "./filterSkeleton"
 
-export const TasksFilterBar = () => {
+export type TaskFiltersBarProps={
+  readonly isLoading: boolean
+} & ClassNameProps
+
+export const TasksFilterBar = ({isLoading, className}:TaskFiltersBarProps) => {
   const { filter, setFilter } = useTasksFilter()
 
   const [titleInput, setTitleInput] = useState("")
@@ -22,7 +28,7 @@ export const TasksFilterBar = () => {
   }, 300)
 
   //Используется для того, чтобы useEffect срабатывал только при монтировании, 
-  // но в то же время, чтобы линт не ругался на depArray
+  //но в то же время, чтобы линт не ругался на depArray
   const isFirstRender = useRef(true)
 
   useEffect(()=>{
@@ -33,8 +39,16 @@ export const TasksFilterBar = () => {
     }
   },[filter.title, filter.assigned])
 
+  if(isLoading){
+    return(
+      <div className="flex gap-2 items-center flex-wrap">
+        <FilterBarSkeleton />
+      </div>
+    )
+  }
+
   return (
-    <div className="flex gap-2 items-center flex-wrap">
+    <div className={cn(className, "flex gap-2 items-center flex-wrap")}>
       <Input
         placeholder="Название"
         value={titleInput || ""}

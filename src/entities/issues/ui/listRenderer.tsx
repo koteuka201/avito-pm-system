@@ -2,6 +2,7 @@ import { Task } from "@shared/api"
 import { ClassNameProps } from "@shared/lib"
 import cn from "classnames"
 import { TaskCardItem } from "./taskCardItem"
+import { TaskCardItemSkeleton } from "./TaskCardItemSkeleton"
 
 export type ListRendererProps={
   tasks: Task[] | undefined
@@ -22,8 +23,10 @@ export const ListRenderer=({tasks, className, isLoading, isFetching, isError}: L
 
   if(isLoading || isFetching){
     return(
-      <div>
-
+      <div className='flex flex-col gap-2 mt-2'>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <TaskCardItemSkeleton key={i} />
+        ))}
       </div>
     )
   }
