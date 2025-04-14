@@ -1,10 +1,10 @@
-import { useGetAllBoards } from "@entities/boards"
+import { useCallback } from "react"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { useCreateTask, useUpdateTask } from "@features/issues"
 import { Priority, TaskStatusEnum } from "@shared/api"
 import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/components"
-import { useCallback } from "react"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import { TaskModalForm } from "../lib"
+import { useGetAllBoards } from "@entities/boards"
+import { TaskModalForm } from "@entities/issues" 
 import { useGetUsers } from "@entities/users"
 
 export type TaskModalProps={
@@ -20,7 +20,7 @@ export type TaskModalProps={
   readonly priority?: Priority
 }
 
-export const TaskModal=({
+export const CreateOrUpdateTaskModal=({
   isOpen,
   mode,
   onClose,
@@ -34,12 +34,12 @@ export const TaskModal=({
 }:TaskModalProps)=>{
   const {control, handleSubmit, reset, formState: {errors}}=useForm<TaskModalForm>({
     defaultValues:{
-      boardId: boardId.toString() ?? null,
-      title: title ?? null,
-      description: description ?? null,
-      priority: priority ?? null,
-      assigneeId: assigneeId.toString() ?? null, 
-      status: status ?? null
+      boardId: boardId ? boardId.toString() : undefined,
+      title: title ?? '',
+      description: description ?? '',
+      priority: priority ?? undefined,
+      assigneeId: assigneeId ? assigneeId.toString() : undefined, 
+      status: status ?? undefined
     }
   })
 

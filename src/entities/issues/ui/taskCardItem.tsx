@@ -1,7 +1,7 @@
 import { AssignedUser, Priority, TaskStatusEnum } from "@shared/api"
 import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent, CardFooter } from "@shared/components"
 import { useSwitch } from "@shared/lib"
-import { TaskModal } from "./taskModal"
+import { CreateOrUpdateTaskModal } from "@features/issues"
 
 export const priorityColors: Record<Priority, string> = {
   Low: "bg-green-100 text-green-800",
@@ -53,7 +53,7 @@ export const TaskCardItem=({
           </div>
         </CardFooter>
       </Card>
-      <TaskModal 
+      <CreateOrUpdateTaskModal 
         mode="edit"
         isOpen={isOpen}
         onClose={handleClose}

@@ -1,4 +1,4 @@
-import { Button } from "@shared/components"
+import { CreateTaskButtonWithModal } from "@features/issues"
 import { BOARDS_PAGE_URL, ISSUES_PAGE_URL } from "@shared/config"
 import cn from "classnames"
 import { Link, useLocation } from "react-router-dom"
@@ -30,7 +30,7 @@ export const Header=()=>{
             Проекты
           </Link>
       </nav>
-      <Button onClick={() => {}}>Создать задачу</Button>
+      <CreateTaskButtonWithModal />
     </header>
   )
 }
