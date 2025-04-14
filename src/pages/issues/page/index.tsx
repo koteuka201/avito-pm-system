@@ -1,6 +1,7 @@
 import { ListRenderer, useGetAllTasks, useTasksFilter } from "@entities/issues"
 import { TasksFilterBar } from "./blocks"
 import { useMemo } from "react"
+import { CreateTaskButtonWithModal } from "@features/issues"
 
 export const IssuesPage=()=>{
   const {data, isError, isLoading, isFetching}=useGetAllTasks()
@@ -18,7 +19,7 @@ export const IssuesPage=()=>{
   }, [data?.data, filter])
   
   return(
-    <div className="">
+    <div className="relative">
       <TasksFilterBar isLoading={isFetching || isLoading} />
       <ListRenderer 
         className="mt-2"
@@ -27,6 +28,9 @@ export const IssuesPage=()=>{
         isFetching={isFetching} 
         isLoading={isLoading} 
       />
+      <div className="fixed bottom-4 right-4 z-10">
+        <CreateTaskButtonWithModal className="h-14 px-8" />
+      </div>
     </div>
   )
 }

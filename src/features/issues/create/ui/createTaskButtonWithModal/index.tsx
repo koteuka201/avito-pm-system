@@ -1,10 +1,10 @@
 import { CreateOrUpdateTaskModal } from "@features/issues/shared"
 import { Button } from "@shared/components"
-import { useSwitch } from "@shared/lib"
+import { ClassNameProps, useSwitch } from "@shared/lib"
 import { useCallback } from "react"
 import { useParams } from "react-router-dom"
 
-export const CreateTaskButtonWithModal=()=>{
+export const CreateTaskButtonWithModal=({className}:ClassNameProps)=>{
 
   const {id}=useParams<{id: string}>()
   const [isOpen, , ,handleClose, handleOpen]=useSwitch()
@@ -15,7 +15,7 @@ export const CreateTaskButtonWithModal=()=>{
 
   return(
     <>
-      <Button onClick={handleClick}>
+      <Button className={className} onClick={handleClick}>
         Создать задачу
       </Button>
       <CreateOrUpdateTaskModal
