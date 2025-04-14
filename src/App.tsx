@@ -1,8 +1,8 @@
+import { Routing } from "./pages"
+
 export const App=()=>{
   return (
-    <div className="">
-      ssfdf
-    </div>
+    <Routing />
   )
 }
 
