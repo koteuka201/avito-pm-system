@@ -6,6 +6,8 @@ import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle,
 import { useGetAllBoards } from "@entities/boards"
 import { TaskModalForm } from "@entities/issues" 
 import { useGetUsers } from "@entities/users"
+import { Link } from "react-router-dom"
+import { GENERATE_BOARD_PAGE_URL } from "@shared/config"
 
 export type TaskModalProps={
   readonly mode: 'edit' | 'create'
@@ -219,14 +221,27 @@ export const CreateOrUpdateTaskModal=({
             {errors.assigneeId && <span className="text-red text-sm">{errors.assigneeId.message}</span>}
           </div>
           <DialogFooter className="mt-4">
-            <Button type="button" variant={'secondary'} onClick={onClose}>
-              Отмена
-            </Button>
-            <Button 
-              isLoading={isCreatePending || isUpdatePending} 
-              type="submit">
-              {mode==="create" ? 'Создать' : 'Обновить'}
-            </Button>
+            <div className="sm:flex sm:w-full sm:justify-between">
+              <div className="mb-2 sm:mb-0">
+                {boardId ? (
+                  <Link to={GENERATE_BOARD_PAGE_URL(boardId.toString())}>
+                    <Button type="button">Перейти на доску</Button>
+                  </Link>
+                ) : (
+                  <Button disabled type="button" className="cursor-not-allowed">
+                    Перейти на доску
+                  </Button>
+                )}
+              </div>
+              <div className="flex flex-col-reverse sm:flex-row sm:space-x-2">
+                <Button type="button" variant={'secondary'} onClick={onClose}>
+                  Отмена
+                </Button>
+                <Button isLoading={isCreatePending || isUpdatePending} type="submit">
+                  {mode==="create" ? 'Создать' : 'Обновить'}
+                </Button>
+              </div>
+            </div>
           </DialogFooter>
         </form>
       </DialogContent>
