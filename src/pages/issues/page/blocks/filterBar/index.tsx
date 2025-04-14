@@ -42,6 +42,7 @@ export const TasksFilterBar = () => {
           setTitleInput(e.target.value)
           debouncedSetTitle(e.target.value)
         }}
+        type="search"
         className="w-64"
       />
       <Input
@@ -51,6 +52,7 @@ export const TasksFilterBar = () => {
           setAssignedInput(e.target.value)
           debouncedSetAssigned(e.target.value)
         }}
+        type="search"
         className="w-48"
       />
       <Select
