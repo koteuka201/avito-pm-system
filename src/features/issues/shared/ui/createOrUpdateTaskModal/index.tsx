@@ -2,7 +2,7 @@ import { useCallback } from "react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { useCreateTask, useUpdateTask } from "@features/issues"
 import { Priority, TaskStatusEnum } from "@shared/api"
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/components"
+import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@shared/components"
 import { useGetAllBoards } from "@entities/boards"
 import { TaskModalForm } from "@entities/issues" 
 import { useGetUsers } from "@entities/users"
@@ -104,7 +104,7 @@ export const CreateOrUpdateTaskModal=({
                 />
               )}
             />
-            {errors.title && <span className="text-red text-sm">{errors.title.message}</span>}
+            {errors.title && <span className="text-red-500 text-sm">{errors.title.message}</span>}
           </div>
           <div>
             <Label htmlFor="description">Описание</Label>
@@ -115,15 +115,14 @@ export const CreateOrUpdateTaskModal=({
                 required: "Это обязательное поле",
               }}
               render={({field})=>(
-                <Input 
+                <Textarea 
                   {...field}
                   id="description"
-                  type="text"
                   placeholder="Описание"
                 />
               )}
             />
-            {errors.description && <span className="text-red text-sm">{errors.description.message}</span>}
+            {errors.description && <span className="text-red-500-400 text-sm">{errors.description.message}</span>}
           </div>
           <div>
             <Label htmlFor="boardId">Проект</Label>
@@ -148,7 +147,7 @@ export const CreateOrUpdateTaskModal=({
                 </Select>
               )}
             />
-            {errors.boardId && <span className="text-red text-sm">{errors.boardId.message}</span>}
+            {errors.boardId && <span className="text-red-500 text-sm">{errors.boardId.message}</span>}
           </div>
           <div>
             <Label htmlFor="priority">Приоритет</Label>
@@ -170,7 +169,7 @@ export const CreateOrUpdateTaskModal=({
                 </Select>
               )}
             />
-            {errors.priority && <span className="text-red text-sm">{errors.priority.message}</span>}
+            {errors.priority && <span className="text-red-500 text-sm">{errors.priority.message}</span>}
           </div>
           {mode==="edit" &&
             <div>
@@ -193,7 +192,7 @@ export const CreateOrUpdateTaskModal=({
                   </Select>
                 )}
               />
-              {errors.status && <span className="text-red text-sm">{errors.status.message}</span>}
+              {errors.status && <span className="text-red-500 text-sm">{errors.status.message}</span>}
             </div>
           }
           <div>
@@ -218,7 +217,7 @@ export const CreateOrUpdateTaskModal=({
                 </Select>
               )}
             />
-            {errors.assigneeId && <span className="text-red text-sm">{errors.assigneeId.message}</span>}
+            {errors.assigneeId && <span className="text-red-500 text-sm">{errors.assigneeId.message}</span>}
           </div>
           <DialogFooter className="mt-4">
             <div className="sm:flex sm:w-full sm:justify-between">
@@ -234,7 +233,7 @@ export const CreateOrUpdateTaskModal=({
                 )}
               </div>
               <div className="flex flex-col-reverse sm:flex-row sm:space-x-2">
-                <Button type="button" variant={'secondary'} onClick={onClose}>
+                <Button type="button" variant={'secondary'} onClick={handleClose}>
                   Отмена
                 </Button>
                 <Button isLoading={isCreatePending || isUpdatePending} type="submit">

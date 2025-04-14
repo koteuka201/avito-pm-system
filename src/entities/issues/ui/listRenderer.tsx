@@ -2,7 +2,7 @@ import { Task } from "@shared/api"
 import { ClassNameProps } from "@shared/lib"
 import cn from "classnames"
 import { TaskCardItem } from "./taskCardItem"
-import { TaskCardItemSkeleton } from "./TaskCardItemSkeleton"
+import { TaskCardItemSkeleton } from "./taskCardItemSkeleton"
 
 export type ListRendererProps={
   tasks: Task[] | undefined

@@ -12,12 +12,13 @@ export const priorityColors: Record<Priority, string> = {
 export type TaskCardItemProps= {
   readonly assignee: AssignedUser
   readonly boardId: number
-  readonly boardName: string
   readonly description: string
   readonly title: string
   readonly id: number
   readonly status: TaskStatusEnum
   readonly priority: Priority
+  readonly boardName?: string
+  readonly isShortVariant?: boolean
 }
 
 export const TaskCardItem=({
@@ -28,7 +29,8 @@ export const TaskCardItem=({
   title,
   id,
   status,
-  priority
+  priority,
+  isShortVariant
 }:TaskCardItemProps)=>{
 
   const [isOpen, , ,handleClose, handleOpen]=useSwitch()
@@ -37,11 +39,11 @@ export const TaskCardItem=({
     <>
       <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={handleOpen}>
         <CardContent className="p-4">
-          <h3 className="font-medium line-clamp-2">{title} ({boardName})</h3>
-          {description && <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{description}</p>}
+          <h3 className="font-medium line-clamp-2">{title} {!isShortVariant && <span>({boardName})</span>}</h3>
+          <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{description}</p>
         </CardContent>
         <CardFooter className="p-4 pt-0 flex justify-between items-center">
-          <Badge className={priorityColors[priority]}>
+          <Badge className={`${priorityColors[priority]} pointer-events-none`}>
             {priority === Priority.Low ? "Низкий" : priority === Priority.Medium ? "Средний" : "Высокий"}
           </Badge>
           <div className="flex items-center gap-2">
