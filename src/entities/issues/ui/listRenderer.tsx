@@ -24,7 +24,7 @@ export const ListRenderer=({tasks, className, isLoading, isFetching, isError}: L
   if(isLoading || isFetching){
     return(
       <div className='flex flex-col gap-2 mt-2'>
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 5 }).map((_, i) => (
           <TaskCardItemSkeleton key={i} />
         ))}
       </div>
