@@ -3,7 +3,7 @@
     "module": "ESNext",
     "target": "ESNext",
     "esModuleInterop": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "baseUrl": "./src",
     "jsx": "react-jsx",
     "paths": {
